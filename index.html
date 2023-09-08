@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sound wave pattern</title>
+</head>
+<link rel="stylesheet" href="index.css">
+<script src="https://unpkg.com/wavesurfer.js"></script>
+
+<body>
+    <div class="hero">
+        <div class="music">
+            <p>Artist:Neefex</p>
+            <h1>Good day (wake up)</h1>
+            <div class="track">
+                <img src="media/play.png" id="playBtn">
+                <div id="waveform"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="module">
+
+    var playBtn = document.getElementById('playBtn');
+
+
+
+    import WaveSurfer from 'https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js'
+
+    const wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: '#ddd',
+        progressColor: '#4169e1',
+        url: '/audio.mp3',
+        barWidth: 4,
+        responsive: true,
+        height: 90,
+        barRadius: 6,
+    })
+
+    wavesurfer.on('interaction', () => {
+        wavesurfer.play()
+    })
+
+    wavesurfer.load('media/Good-Day-Wake-Up-NEFFEX.mp3');
+    playBtn.onclick = function(){
+        wavesurfer.playPause();
+        if(playBtn.src.includes("play.png")){
+            playBtn.src= "media/pause.png";
+        }else{
+            playBtn.src="media/play.png";
+        }
+    }
+    wavesurfer.on('finish',function(){
+        playBtn.src="media/play.png";
+        wavesurfer.stop();
+
+    })
+    
+</script>
+
+</html>
